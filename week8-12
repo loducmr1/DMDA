@@ -1,0 +1,359 @@
+**DMDA LAB PROGRAMS** :
+Week-8a :
+v<-c(2,1,2,3,1,2,3,4,1,5,5,3,2,3)
+sum=sum(v)
+sum
+average=sum/14
+average
+cat(sum,average)
+mean(v)
+median(v)
+getmode<- function(v){
+  uniqv<- unique(v)
+  uniqv[which.max(tabulate(match(v,uniqv)))]
+}
+result<- getmode(v)
+cat(sum,average,result,mean(v))
+->o/p :
+37 2.64285737 2.642857 2 2.642857
+---------------------------
+Week-8b :
+input <- mtcars[,c("am","mpg","hp")]
+print(head(input))
+# Get the dataset.
+input <- mtcars
+# Create the regression model.
+result <- aov(mpg~hp*am,data = input)
+print(summary(result))
+# Create the regression model.
+result <- aov(mpg~hp+am,data = input)
+print(summary(result))
+# Create the regression models.
+result1 <- aov(mpg~hp*am,data = input)
+result2 <- aov(mpg~hp+am,data = input)
+# Compare the two models.
+print(anova(result1,result2))
+boxplot(anova(result1,result2))
+-> o/p :
+(box plot image)
+                  am  mpg  hp
+Mazda RX4          1 21.0 110
+Mazda RX4 Wag      1 21.0 110
+Datsun 710         1 22.8  93
+Hornet 4 Drive     0 21.4 110
+Hornet Sportabout  0 18.7 175
+Valiant            0 18.1 105
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+hp           1  678.4   678.4  77.391 1.50e-09 ***
+am           1  202.2   202.2  23.072 4.75e-05 ***
+hp:am        1    0.0     0.0   0.001    0.981    
+Residuals   28  245.4     8.8                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+hp           1  678.4   678.4   80.15 7.63e-10 ***
+am           1  202.2   202.2   23.89 3.46e-05 ***
+Residuals   29  245.4     8.5                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Analysis of Variance Table
+
+Model 1: mpg ~ hp * am
+Model 2: mpg ~ hp + am
+  Res.Df    RSS Df  Sum of Sq     F Pr(>F)
+1     28 245.43                           
+2     29 245.44 -1 -0.0052515 6e-04 0.9806
+--------------------------------------------------------------------------
+Week-9a :
+x <- c(151, 174, 138,186, 128, 136, 179, 163, 152, 131)
+y <- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+relation <- lm(y~x)
+print(relation)
+a <- data.frame(x = 190)
+result <- predict(relation, a)
+print(result)
+png(file="fr12.png")
+plot(y,x,col ="blue", main="Height & Weight Regression", abline(lm(x~y)), cex = 1.3,pch = 16, xlab = "Weight in Kg",ylab
+     = "Height in cm")
+dev.off()
+o/p :
+(graphical image)
+Call:
+lm(formula = y ~ x)
+
+Coefficients:
+(Intercept)            x  
+   -38.4551       0.6746  
+
+      1 
+89.7209
+-------------------------
+Week-9b :
+input <-mtcars[,c("mpg","disp","hp","wt")]
+model <-lm(mpg~disp+hp+wt,data=input)
+print(model)
+cat("# # # # The Coefficent values # # #","\n")
+a<-coef(model)[1]
+print(a)
+Xdisp<-coef(model)[2]
+Xhp<-coef(model)[3]
+Xwt<-coef(model)[4]
+print(Xdisp)
+print(Xhp)
+print(Xwt)
+-> o/p :
+Call:
+lm(formula = mpg ~ disp + hp + wt, data = input)
+
+Coefficients:
+(Intercept)         disp           hp           wt  
+  37.105505    -0.000937    -0.031157    -3.800891  
+
+# # # # The Coefficent values # # # 
+(Intercept) 
+   37.10551 
+         disp 
+-0.0009370091 
+         hp 
+-0.03115655 
+       wt 
+-3.800891
+-------------------------
+Week-9c :
+input <-mtcars[,c("am","cyl","hp","wt")]
+print(head(input))
+input <-mtcars[,c("am","cyl","hp","wt")]
+am.data=glm(formula=am~cyl+hp+wt,data=input,family=binomial)
+print(summary(am.data))
+->o/p :
+                  am cyl  hp    wt
+Mazda RX4          1   6 110 2.620
+Mazda RX4 Wag      1   6 110 2.875
+Datsun 710         1   4  93 2.320
+Hornet 4 Drive     0   6 110 3.215
+Hornet Sportabout  0   8 175 3.440
+Valiant            0   6 105 3.460
+
+Call:
+glm(formula = am ~ cyl + hp + wt, family = binomial, data = input)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-2.17272  -0.14907  -0.01464   0.14116   1.27641  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)  
+(Intercept) 19.70288    8.11637   2.428   0.0152 *
+cyl          0.48760    1.07162   0.455   0.6491  
+hp           0.03259    0.01886   1.728   0.0840 .
+wt          -9.14947    4.15332  -2.203   0.0276 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 43.2297  on 31  degrees of freedom
+Residual deviance:  9.8415  on 28  degrees of freedom
+AIC: 17.841
+
+Number of Fisher Scoring iterations: 8
+-------------------------
+Week-9d :
+input <- warpbreaks
+print(head(input))
+output <-glm(formula = breaks ~ wool+tension, data = warpbreaks,
+             family = poisson)
+print(summary(output))
+->o/p:
+  breaks wool tension
+1     26    A       L
+2     30    A       L
+3     54    A       L
+4     25    A       L
+5     70    A       L
+6     52    A       L
+
+Call:
+glm(formula = breaks ~ wool + tension, family = poisson, data = warpbreaks)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.6871  -1.6503  -0.4269   1.1902   4.2616  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  3.69196    0.04541  81.302  < 2e-16 ***
+woolB       -0.20599    0.05157  -3.994 6.49e-05 ***
+tensionM    -0.32132    0.06027  -5.332 9.73e-08 ***
+tensionH    -0.51849    0.06396  -8.107 5.21e-16 ***
+---------------------------------------------------------------------------------
+Week-10a :
+x <- c(580, 7813, 28266, 59287, 75700,
+       87820, 95314, 126214, 218843, 471497,
+       936851, 1508725, 2072113)
+library(lubridate)
+png(file ="timeSeries.png")
+require(graphics)
+mts <- ts(x, start = decimal_date(ymd("2020-01-22")),
+          frequency = 365.25 / 7)
+print(mts)
+plot(mts, xlab ="Weekly Data",
+     ylab ="Total Positive Cases",
+     main ="COVID-19 Pandemic",
+     col.main ="darkgreen")
+dev.off()
+print(ts(1:10,frequency=7,start=c(12,2)),calendar = TRUE)
+gnp<-ts(cumsum(1+round(rnorm(100),2)),start=c(1954,7),frequency=12)
+plot(gnp)
+->o/p :
+(graph image)
+----------------------
+Week-10b :
+xvalues <- c(1.6,2.1,2,2.23,3.71,3.25,3.4,3.86,1.19,2.21) 
+yvalues <- c(5.19,7.43,6.94,8.11,18.75,14.88,16.06,19.12,3.21,7.58) 
+
+# Give the chart file a name. 
+png(file = "nls11.png") 
+
+
+# Plot these values. 
+plot(xvalues,yvalues) 
+
+
+# Take the assumed values and fit into the model. 
+model <- nls(yvalues ~ b1*xvalues^2+b2,start = list(b1 = 1,b2 = 3)) 
+
+# Plot the chart with new data by fitting it to a prediction from 100 data points. 
+new.data <- data.frame(xvalues = seq(min(xvalues),max(xvalues),len = 100)) 
+lines(new.data$xvalues,predict(model,newdata = new.data))
+->o/p :
+(graphical image)
+------------------------
+Week-10c :
+library(party)
+input.data <- readingSkills[c(1:105),]
+png(file="deci.png")
+output.tree <- ctree(nativeSpeaker ~ age + shoeSize + score,data=input.data)
+plot(output.tree)
+dev.off()
+->o/p :
+(image of decision tree)
+------------------------------------------------------------------------------------
+Week-11a :
+x=seq(-15,15,by=0.1)
+y=dnorm(x,mean(x),sd(x))
+png(file="dnormExample24.png")
+plot(x,y)
+dev.off()
+x<-seq(-10,10,by=0.1)
+y<-pnorm(x,mean=2.5,sd=2)
+png(file="pnormExample24.png")
+plot(x,y)
+dev.off()
+x<-seq(0,1,by=0.02)
+y<-qnorm(x,mean(x),sd(x))
+png(file="qnormExample24.png")
+plot(x,y)
+dev.off()
+x<-rnorm(1000,mean=90,sd=5)
+png(file="rnormExample24.png")
+hist(x,breaks=50)
+dev.off()
+->o/p :
+(graphical image )
+---------------------------
+Week-11b :
+x<-seq(0,50,by=1)
+y<-dbinom(x,50,0.5)
+png(file="dbinom24.png")
+plot(x,y)
+dev.off()
+x<-pbinom(26,51,0.5)
+print(x)
+x<-qbinom(0.25,51,1/2)
+print(x)
+x<-rbinom(8,150,0.4)
+print(x)
+->o/p :
+(graphcial image)
+[1] 0.610116
+[1] 23
+[1] 59 57 60 54 66 51 64 49
+----------------------------------------------------------------------------------
+Week-12a :
+
+library(MASS)
+print(summary(survey))
+stu_data=data.frame(survey$Smoke,survey$Exer)
+stu_data=table(survey$Smoke,survey$Exer)
+print(stu_data)
+print(chisq.test(stu_data))
+->o/p :
+     Sex          Wr.Hnd          NW.Hnd        W.Hnd          Fold    
+ Female:118   Min.   :13.00   Min.   :12.50   Left : 18   L on R : 99  
+ Male  :118   1st Qu.:17.50   1st Qu.:17.50   Right:218   Neither: 18  
+ NA's  :  1   Median :18.50   Median :18.50   NA's :  1   R on L :120  
+              Mean   :18.67   Mean   :18.58                            
+              3rd Qu.:19.80   3rd Qu.:19.73                            
+              Max.   :23.20   Max.   :23.50                            
+              NA's   :1       NA's   :1                                
+     Pulse             Clap       Exer       Smoke         Height            M.I     
+ Min.   : 35.00   Left   : 39   Freq:115   Heavy: 11   Min.   :150.0   Imperial: 68  
+ 1st Qu.: 66.00   Neither: 50   None: 24   Never:189   1st Qu.:165.0   Metric  :141  
+ Median : 72.50   Right  :147   Some: 98   Occas: 19   Median :171.0   NA's    : 28  
+ Mean   : 74.15   NA's   :  1              Regul: 17   Mean   :172.4                 
+ 3rd Qu.: 80.00                            NA's :  1   3rd Qu.:180.0                 
+ Max.   :104.00                                        Max.   :200.0                 
+ NA's   :45                                            NA's   :28                    
+      Age       
+ Min.   :16.75  
+ 1st Qu.:17.67  
+ Median :18.58  
+ Mean   :20.37  
+ 3rd Qu.:20.17  
+ Max.   :73.00  
+                
+       
+        Freq None Some
+  Heavy    7    1    3
+  Never   87   18   84
+  Occas   12    3    4
+  Regul    9    1    7
+
+	Pearson's Chi-squared test
+
+data:  stu_data
+X-squared = 5.4885, df = 6, p-value = 0.4828
+----------------------------
+Week-12b :
+sales_before <-rnorm (7,mean=50000,sd=50)
+sales_after <- rnorm(7,mean=50075,sd=50)
+print(t.test(sales_before,sales_after,var.equal=TRUE))
+->o/p :
+	Two Sample t-test
+
+data:  sales_before and sales_after
+t = -1.0849, df = 12, p-value = 0.2993
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -84.86929  28.44569
+sample estimates:
+mean of x mean of y 
+ 50014.06  50042.28
+--------------------------------
+Week=12c :
+x<-c(18,19,22,25,27,28,41,45,51,55)
+y<-c(14,15,15,17,18,22,25,25,27,34)
+print(var.test(x,y))
+->o/p:
+	F test to compare two variances
+
+data:  x and y
+F = 4.3871, num df = 9, denom df = 9, p-value = 0.03825
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+  1.089699 17.662528
+sample estimates:
+ratio of variances 
+          4.387122 
+----------------------------------------------------------------------------------
