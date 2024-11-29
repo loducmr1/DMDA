@@ -1,0 +1,12 @@
+x<-c(12,7,3,4.2,18,54,-21,8,-5)
+result.mean<-mean(x)
+print(paste("mean=",result.mean))
+result.median<-median(x)
+print(paste("median=",result.median))
+c<-c(12,7,3,4.2,18,54,-21,8,-5,8)
+getmode<-function(c){
+  uniqc<-unique(c)
+uniqc[which.max(tabulate(match(c,uniqc)))]
+}
+result.mode<-getmode(c) 
+print(paste("mode=",result.mode))

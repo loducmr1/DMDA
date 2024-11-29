@@ -1,0 +1,22 @@
+#Getting the data points in form of a R vector
+snowfall<- c(790,1170.8,860.1,1330.6,630.4,911.5,
+             683.5,996.6,783.2,982,881.8,1021)
+#converting it into a time series object
+snowfall_timeseries<- ts(snowfall,start= c(2013,1),frequency =12)
+#Printing the timeseries data
+print(snowfall_timeseries)
+#giving a name to chart fille.
+png(file="snowfall.png")
+#Plotting a graph of a time series
+plot(snowfall_timeseries)
+#saving file
+dev.off()
+model<-lm(snowfall_timeseries~time(snowfall_timeseries))
+png(file="snowfall_with_trend.png")
+#Plotting a graph of time series.
+plot(snowfall_timeseries,main="snowfall Over Time with Trend Line:",
+     xlab="Time" , ylab="Snowfall", col="blue")
+#adding regression
+abline(model,col="red")
+#saving file
+dev.off()

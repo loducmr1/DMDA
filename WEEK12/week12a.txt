@@ -1,0 +1,14 @@
+#install.packages("MASS")
+library("MAss")
+print(head(Cars93))
+print(str(Cars93))
+#Loading the Mass Library
+
+#Creating a DATA frame from main data set.
+car_data<- data.frame(Cars93$AirBags, Cars93$Type)
+#Creating a tABLE WITH NEEDED VARIABLES
+car_data=table(Cars93$AirBags, Cars93$Type)
+print(car_data)
+
+#Performing the Chi-Square Test
+print(chisq.test(car_data))
