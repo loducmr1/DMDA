@@ -1,0 +1,4 @@
+input <- mtcars[c("mpg", "wt", "disp", "hp")]
+model <- glm(mpg ~ wt + disp + hp, data = input)
+print(model)
+plot(model)
